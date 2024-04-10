@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',       # imported rest_framework
-    'billing'               # Custum billing app
+    'billing',              # Custum billing app
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -112,10 +113,10 @@ SIMPLE_JWT = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'billing',
+        'NAME': 'backend',
         'USER': 'postgres',
         'PASSWORD': '45#Purgeon',
-        'HOST': 'localhost',
+        'HOST': 'database-spacey.cpcu0kowc04y.eu-north-1.rds.amazonaws.com',
         'PORT': '5432',       
     }
 }
