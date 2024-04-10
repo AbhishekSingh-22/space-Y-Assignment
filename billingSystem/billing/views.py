@@ -67,11 +67,29 @@ class EmployeeRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmployeeSerializer
 
 
-# billing order
-class OrderListCreateView(generics.ListCreateAPIView):
+    
+
+class OrderDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-class OrderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class OrderListCreateAPIView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+        
+# billing order
+class OrderPlacementView(APIView):
+    def post(self, request):
+        serializer = OrderPlacementSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Order placed successfully.'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
+
+            
