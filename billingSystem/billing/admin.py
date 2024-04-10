@@ -2,4 +2,4 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-admin.site.register([Product, Customer, Order, Employee])
+admin.site.register([Product, Customer, Order,OrderItem, Employee])
