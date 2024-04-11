@@ -1,6 +1,8 @@
 
 # Space-Y-Assignment
 
+Project link: http://ec2-13-53-78-147.eu-north-1.compute.amazonaws.com:8080/swagger/
+
 ## Statement
 
 Build a backend for an on-counter billing system for a small-scale shopping mall.
@@ -78,7 +80,7 @@ Before you begin, ensure you have met the following requirements:
   python manage.py runserver
 ```
 
-9. Open your web browser and navigate to http://localhost:8000/ to view the project
+9. Open your web browser and navigate to http://localhost:8000/swagger to view the project
 
 
 
