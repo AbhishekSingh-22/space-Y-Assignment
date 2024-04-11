@@ -4,6 +4,7 @@ from .models import *
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
+# User serializer for authentication
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -15,37 +16,85 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+# product Serializer
 class ProductSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Product
         fields = ['product_id', 'name', 'available_qty', 'qty_sold', 'price']
 
+    def validate_name(self, value):
+        # Add custom validation for the name field
+        if len(value) < 2:
+            raise serializers.ValidationError("Name must be at least 2 characters long.")
+        return value
+
+    def validate_price(self, value):
+        # Add custom validation for the price field
+        if value <= 0:
+            raise serializers.ValidationError("Price must be greater than zero.")
+        return value
+
+# Employee serializer
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ['id', 'name', 'email', 'phone_number', 'employee_id', 'job_title', 'total_sales', 'number_of_orders_processed']
 
+    def validate_name(self, value):
+        # Custom validation for the name field
+        if len(value.strip()) < 2:  # Trim extra spaces and check length
+            raise serializers.ValidationError("Name must be at least 2 characters long.")
+        return value.strip()  # Return trimmed value
+    
+    def validate_phone_number(self, value):
+        # Custom validation for the phone_number field
+        if not value.isdigit():  # Check if the phone number contains only digits
+            raise serializers.ValidationError("Phone number must contain only numeric characters.")
+        return value.strip()  # Return trimmed value
 
+    def validate(self, data):
+        # Trim extra spaces from all string fields before validation
+        for field_name, field_value in data.items():
+            if isinstance(field_value, str):
+                data[field_name] = field_value.strip()
+        return data
+
+# Customer Serializer
 class CustomerSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Customer
         fields = ['id', 'name', 'mobile_number']
 
+    def validate_name(self, value):
+        # Custom validation for the name field
+        if len(value.strip()) < 2:  # Trim extra spaces and check length
+            raise serializers.ValidationError("Name must be at least 2 characters long.")
+        return value.strip()  # Return trimmed value
+    
+    def validate_phone_number(self, value):
+        # Custom validation for the phone_number field
+        if not value.isdigit():  # Check if the phone number contains only digits
+            raise serializers.ValidationError("Phone number must contain only numeric characters.")
+        return value.strip()  # Return trimmed value
 
+    def validate(self, data):
+        # Trim extra spaces from all string fields before validation
+        for field_name, field_value in data.items():
+            if isinstance(field_value, str):
+                data[field_name] = field_value.strip()
+        return data
+
+# Order serializer
 class OrderSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Order
         fields = ['id', 'customer', 'employee', 'placed_at', 'status', 'total_price']
 
 
-# class OrderSerializer(serializers.ModelSerializer):
-#     customer = PrimaryKeyRelatedField(queryset=Customer.objects.all())
-#     employee = PrimaryKeyRelatedField(queryset=Employee.objects.all())
-#     # order_items = OrderItemSerializer(many=True)
-#     class Meta:
-#         model = Order
-#         fields = ('id', 'customer', 'employee', 'status', 'total_price')
-
+# Serializer for placing orders
 class OrderPlacementSerializer(serializers.Serializer):
     customer_id = serializers.IntegerField()
     employee_id = serializers.IntegerField()
@@ -93,3 +142,11 @@ class OrderPlacementSerializer(serializers.Serializer):
         # Create the order
         order = Order.objects.create(customer=customer, employee=employee, total_price=total_price)
         return order
+    
+
+class AnalyticsSerializer(serializers.Serializer):
+
+    employee_with_most_sales = serializers.CharField()
+    product_most_sold = serializers.CharField()
+    top_employees = serializers.ListField(child=serializers.CharField())
+    top_products = serializers.ListField(child=serializers.CharField())

@@ -1,5 +1,6 @@
 from django.db import models
 
+# product table
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
@@ -10,11 +11,11 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
-
+# employee table
 class Employee(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    phone_number = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=12)
     employee_id = models.CharField(max_length=20)
     job_title = models.CharField(max_length=100)
     total_sales = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -23,16 +24,16 @@ class Employee(models.Model):
     def __str__(self):
         return self.name
     
-
+# Customer Table
 class Customer(models.Model):
     name = models.CharField(max_length=100)
-    mobile_number = models.CharField(max_length=20)
+    mobile_number = models.CharField(max_length=12)
 
     def __str__(self):
         return self.name
     
 
-
+# Order Table
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
