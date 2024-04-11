@@ -1,8 +1,6 @@
 
 # Space-Y-Assignment
 
-Project link: http://ec2-13-53-78-147.eu-north-1.compute.amazonaws.com:8080/swagger/
-
 ## Statement
 
 Build a backend for an on-counter billing system for a small-scale shopping mall.
@@ -21,6 +19,46 @@ Before you begin, ensure you have met the following requirements:
 - Python installed on your local machine. You can download it from [here](https://www.python.org/downloads/).
 - Pip package manager installed. If you installed Python using Anaconda, you already have pip installed.
 - Virtualenv installed. You can install it via pip by running `pip install virtualenv`.
+
+
+## API Reference
+
+This project mainly has 4 tables - Products, Employees, Customers, Orders for tracking all the things required by a small scale shopping mall.
+The API endpoints are:
+
+1. baseurl/api/v1/products
+2. baseurl/api/v1/product/id
+3. baseurl/api/v1/employees
+4. baseurl/api/v1/employee/id
+5. baseurl/api/v1/customers
+6. baseurl/api/v1/customer/id
+7. baseurl/api/v1/orders
+8. baseurl/api/v1/order/id
+9. baseurl/api/v1/place-order
+10. baseurl/api/v1/analytics
+
+### NOTE:
+ For accessing the above APIs, you first need to get and access token for it and pass it in the request authorization section as the bearer token.
+Without it you will be unauthorized to access it.
+To get the access token and refresh token visit:- 
+- baseurl/api/v1/register/ 
+If you are a new user, and if you already an user with you account created then visit:- 
+- baseurl/api/token/ 
+to get the access token and refresh token.
+
+
+### Request structure for placing order api:-
+
+```json
+{
+"customer_id": {id} ,
+"employee_id": {id},
+"products":[
+{"product_id": {id}, "quantity": {qty} },
+{"product_id": {id}, "quantity": {qty}}
+]
+}
+```
 
 
 ## Run Locally
@@ -80,7 +118,7 @@ Before you begin, ensure you have met the following requirements:
   python manage.py runserver
 ```
 
-9. Open your web browser and navigate to http://localhost:8000/swagger to view the project
+9. Open your web browser and navigate to http://localhost:8000/swagger/ to view the project
 
 
 
