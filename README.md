@@ -1,8 +1,6 @@
 
 # Space-Y-Assignment
 
-Project link: http://ec2-13-53-78-147.eu-north-1.compute.amazonaws.com:8080/swagger/
-
 ## Statement
 
 Build a backend for an on-counter billing system for a small-scale shopping mall.
